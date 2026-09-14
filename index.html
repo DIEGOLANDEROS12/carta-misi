@@ -134,11 +134,11 @@
     height:100%;
     object-fit:cover;
   }
-  .p1{ top:3%;   left:3%;   width:150px; height:190px; transform:rotate(-9deg); }
-  .p2{ top:5%;   right:4%;  width:150px; height:190px; transform:rotate(8deg); }
-  .p3{ bottom:5%; left:5%;  width:150px; height:190px; transform:rotate(7deg); }
-  .p4{ bottom:4%; right:3%; width:150px; height:190px; transform:rotate(-6deg); }
-  .p5{ top:44%;  left:0.5%; width:130px; height:165px; transform:rotate(-4deg); }
+  .p1{ top:1%;   left:-2%;  width:320px; height:400px; transform:rotate(-9deg); }
+  .p2{ top:2%;   right:-2%; width:320px; height:400px; transform:rotate(8deg); }
+  .p3{ bottom:1%; left:-1%; width:300px; height:375px; transform:rotate(7deg); }
+  .p4{ bottom:0%; right:-3%; width:320px; height:400px; transform:rotate(-6deg); }
+  .p5{ top:38%;  left:-4%;  width:260px; height:325px; transform:rotate(-4deg); }
 
   @media (max-width: 860px){
     .collage{
@@ -151,8 +151,15 @@
     }
     .polaroid{
       position:static !important;
-      width:104px !important;
-      height:130px !important;
+      width:180px !important;
+      height:225px !important;
+    }
+  }
+
+  @media (max-width: 480px){
+    .polaroid{
+      width:150px !important;
+      height:188px !important;
     }
   }
 

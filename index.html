@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Misi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum-950:#241220;
+    --plum-800:#3d1f35;
+    --rose-300:#e8b4bc;
+    --blush-050:#fbf0ec;
+    --wine-600:#6b2e43;
+    --gold-400:#c9a66b;
+    --ink-900:#3a2530;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:'Jost',sans-serif;
+    color:var(--ink-900);
+    overflow-x:hidden;
+  }
+
+  /* ---------- PORTADA ---------- */
+  #portada{
+    position:fixed;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:radial-gradient(circle at 50% 35%, var(--plum-800), var(--plum-950) 70%);
+    transition:opacity 1.1s ease, transform 1.1s ease;
+    z-index:10;
+  }
+  #portada.oculto{
+    opacity:0;
+    transform:scale(1.06);
+    pointer-events:none;
+  }
+
+  .estrella{
+    position:absolute;
+    width:2px;height:2px;
+    background:var(--rose-300);
+    border-radius:50%;
+    opacity:0.5;
+    animation:parpadeo 4s ease-in-out infinite;
+  }
+  @keyframes parpadeo{
+    0%,100%{opacity:.15;}
+    50%{opacity:.7;}
+  }
+
+  .nombre{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(2.8rem,9vw,4.5rem);
+    color:var(--rose-300);
+    letter-spacing:0.02em;
+    margin:0 0 2.2rem 0;
+    text-shadow:0 0 30px rgba(232,180,188,0.35);
+  }
+
+  #boton-corazon{
+    background:none;
+    border:none;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.9rem;
+    padding:0.5rem;
+  }
+  #boton-corazon svg{
+    width:52px;height:52px;
+    animation:latido 1.8s ease-in-out infinite;
+  }
+  @keyframes latido{
+    0%,100%{transform:scale(1);}
+    25%{transform:scale(1.12);}
+    40%{transform:scale(0.98);}
+  }
+  .texto-boton{
+    font-family:'Jost',sans-serif;
+    font-size:0.95rem;
+    color:var(--rose-300);
+    letter-spacing:0.04em;
+  }
+
+  /* ---------- CARTA ---------- */
+  #carta-wrap{
+    min-height:100vh;
+    background:var(--blush-050);
+    display:flex;
+    justify-content:center;
+    padding:5rem 1.5rem 6rem;
+    opacity:0;
+    transition:opacity 1.4s ease 0.3s;
+  }
+  #carta-wrap.visible{opacity:1;}
+
+  .carta{
+    max-width:600px;
+    width:100%;
+  }
+
+  /* ---------- COLLAGE DE FOTOS ---------- */
+  #carta-wrap{
+    position:relative;
+    overflow:hidden;
+  }
+  .collage{
+    position:absolute;
+    inset:0;
+    z-index:1;
+  }
+  .polaroid{
+    position:absolute;
+    margin:0;
+    background:#fff;
+    padding:8px 8px 26px;
+    box-shadow:0 12px 26px rgba(107,46,67,0.2);
+  }
+  .polaroid img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  .p1{ top:3%;   left:3%;   width:150px; height:190px; transform:rotate(-9deg); }
+  .p2{ top:5%;   right:4%;  width:150px; height:190px; transform:rotate(8deg); }
+  .p3{ bottom:5%; left:5%;  width:150px; height:190px; transform:rotate(7deg); }
+  .p4{ bottom:4%; right:3%; width:150px; height:190px; transform:rotate(-6deg); }
+  .p5{ top:44%;  left:0.5%; width:130px; height:165px; transform:rotate(-4deg); }
+
+  @media (max-width: 860px){
+    .collage{
+      position:static;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:0.9rem;
+      padding:2rem 1.2rem 0;
+    }
+    .polaroid{
+      position:static !important;
+      width:104px !important;
+      height:130px !important;
+    }
+  }
+
+  .carta{
+    position:relative;
+    z-index:2;
+    background:rgba(251,240,236,0.97);
+    border-radius:20px;
+    padding:3rem 2.2rem;
+    box-shadow:0 25px 60px rgba(36,18,32,0.16);
+  }
+
+  .encabezado{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size:1.9rem;
+    color:var(--wine-600);
+    text-align:center;
+    margin:0 0 0.6rem;
+  }
+
+  .linea-divisoria{
+    width:70px;
+    height:1px;
+    background:var(--gold-400);
+    margin:0 auto 2.8rem;
+  }
+
+  #carta-texto{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.35rem;
+    line-height:1.85;
+    color:var(--ink-900);
+    white-space:pre-wrap;
+  }
+  #carta-texto p{margin:0 0 1.4rem;}
+
+  .firma{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size:1.4rem;
+    color:var(--wine-600);
+    text-align:right;
+    margin-top:3rem;
+  }
+
+  /* ---------- WIDGET DE MUSICA ---------- */
+  #musica-widget{
+    position:fixed;
+    bottom:1.4rem;
+    right:1.4rem;
+    display:flex;
+    align-items:center;
+    gap:0.7rem;
+    background:var(--plum-950);
+    padding:0.6rem 1rem 0.6rem 0.6rem;
+    border-radius:999px;
+    box-shadow:0 6px 20px rgba(36,18,32,0.35);
+    opacity:0;
+    transform:translateY(12px);
+    transition:opacity 0.8s ease 1.4s, transform 0.8s ease 1.4s;
+    z-index:5;
+  }
+  #musica-widget.visible{opacity:1;transform:translateY(0);}
+
+  .disco{
+    width:34px;height:34px;
+    border-radius:50%;
+    background:conic-gradient(var(--gold-400) 0turn, var(--plum-800) 0.02turn);
+    display:flex;align-items:center;justify-content:center;
+    animation:girar 6s linear infinite;
+    animation-play-state:paused;
+  }
+  .disco.girando{animation-play-state:running;}
+  .disco::after{
+    content:"";
+    width:8px;height:8px;
+    border-radius:50%;
+    background:var(--blush-050);
+  }
+  @keyframes girar{to{transform:rotate(360deg);}}
+
+  #musica-texto{
+    font-size:0.78rem;
+    color:var(--rose-300);
+    letter-spacing:0.02em;
+  }
+
+  #yt-oculto{
+    position:absolute;
+    width:1px;height:1px;
+    opacity:0;
+    pointer-events:none;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    #boton-corazon svg, .disco, .estrella{animation:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ======================= PORTADA ======================= -->
+<div id="portada">
+  <div id="estrellas"></div>
+  <h1 class="nombre">Misi</h1>
+  <button id="boton-corazon" aria-label="Abrir la carta">
+    <svg viewBox="0 0 24 24" fill="var(--rose-300)">
+      <path d="M12 21s-7.5-4.6-10-9C.5 8.8 2 5 5.6 5c2 0 3.3 1 4.4 2.4C11.1 6 12.4 5 14.4 5 18 5 19.5 8.8 22 12c-2.5 4.4-10 9-10 9z"/>
+    </svg>
+    <span class="texto-boton">abrir mi corazón</span>
+  </button>
+</div>
+
+<!-- ======================= CARTA ======================= -->
+<div id="carta-wrap">
+  <div class="collage" aria-hidden="true">
+    <figure class="polaroid p1"><img src="fotos/foto3.jpg" alt=""></figure>
+    <figure class="polaroid p2"><img src="fotos/foto2.jpg" alt=""></figure>
+    <figure class="polaroid p3"><img src="fotos/foto4.jpg" alt=""></figure>
+    <figure class="polaroid p4"><img src="fotos/foto1.jpg" alt=""></figure>
+    <figure class="polaroid p5"><img src="fotos/foto5.jpg" alt=""></figure>
+  </div>
+
+  <div class="carta">
+
+    <p class="encabezado">Para Misi, el amor de mi vida</p>
+    <div class="linea-divisoria"></div>
+
+    <div id="carta-texto">
+      <p>Sé que últimamente hemos estado peleando mucho, muchas veces por cosas que hago o que no hago, y quiero empezar esta carta pidiéndote una disculpa por todos los altercados que hemos tenido últimamente. Incluso por lo de ayer con tus papás. Sé que no lo hice con ninguna mala intención, pero entiendo que pudo haberte molestado y de verdad lo siento.</p>
+
+      <p>Pero más allá de una pelea en específico, quiero que sepas algo que para mí es mucho más importante: no hay nadie en esta vida con quien quisiera crear una vida más que contigo a mi lado.</p>
+
+      <p>Desde que nos conocimos me demostraste lo hermosa que eres, por dentro y por fuera. Me has demostrado lo mucho que te esfuerzas para que todo funcione, incluso cuando estás cansada, estresada o tienes tus propias cosas externas a nosotros. Y aunque a veces probablemente no te lo diga lo suficiente, yo sí veo todo eso. Veo tus esfuerzos, veo lo que haces por mí y por nosotros, y te lo agradezco muchísimo.</p>
+
+      <p>Quiero que sepas que lo único que quiero intentar, y que siempre voy a intentar, es hacerte la mujer más feliz del mundo, porque a mis ojos es lo que te mereces. Sé que a veces bromeo de más, que puedo hacer cosas que te hacen enojar o que quizá no siempre actúo de la manera que esperas de mí, y créeme que muchas veces no es porque no me importes. Al contrario.</p>
+
+      <p>Te amo muchísimo.</p>
+
+      <p>Y aparte de ser mi novia, te considero mi mejor amiga, mi cómplice en mis pendejadas, la persona con la que quiero compartir mis cosas buenas y malas, y, si Dios quiere, la mamá de mis hijos y mi esposa en un futuro.</p>
+
+      <p>Y no te digo todo esto solamente para que te desenojes conmigo o para que esta pelea se acabe. Te lo digo porque realmente lo siento.</p>
+
+      <p>Antes de conocerte siempre he sido una persona bastante fría y calculadora, como decimos jajaja. Siempre he sido de pensar mucho las cosas y de no demostrar demasiado lo que siento. Pero desde que te conocí, algo cambió en mí. Ahora todo lo quiero hacer contigo. Quiero compartir contigo mis logros, mis planes, mis momentos buenos, mis momentos malos, mis pendejadas y hasta las cosas más pequeñas de mi día.</p>
+
+      <p>Por eso también hay veces que me entristezco por cosas que quizá parecen mínimas. No porque quiera hacer problemas de todo, sino porque lo único que quiero para ti es lo mejor. Quiero que estés feliz, que estés contenta contigo misma, que estés orgullosa de quien eres y que también estés feliz conmigo y con lo que estamos construyendo.</p>
+
+      <p>No hay un solo día en el que no piense en ti. Aunque a veces no lo parezca porque no te mando tantos mensajes, porque estoy ocupado o porque no estoy tan pendiente como debería, quiero que sepas que eso nunca significa que no estés presente en mi cabeza.</p>
+
+      <p>La verdad es que estoy esforzándome mucho por salir adelante, por conseguir mis metas y por construir las cosas que quiero para mi futuro. Y en cada una de esas metas, en cada uno de esos logros y en cada cosa que quiero conseguir, estás tú incluida.</p>
+
+      <p>Porque cuando pienso en tener éxito, no solamente pienso en mí. Pienso en nosotros.</p>
+
+      <p>Pienso en todo lo que algún día podamos tener juntos, en las cosas que podamos conocer, en los lugares a los que podamos viajar, en nuestra casa, en nuestra familia y en todas esas cosas que todavía nos faltan vivir.</p>
+
+      <p>Misi, desde que te conocí he mejorado en cosas que jamás pensé que iba a cambiar.</p>
+
+      <p>Como lo del vape. Ya sé que te surra que diga que lo dejé por ti o que lo mencione jajaja, pero la realidad es que es verdad. Tú me hiciste querer dejarlo. Tú me haces querer ser una mejor persona.</p>
+
+      <p>Y no solamente con eso.</p>
+
+      <p>En mi trabajo, en mis metas, en muchas decisiones que tomo y hasta en las pendejadas que hago, de alguna manera me has ayudado sin siquiera darte cuenta jajaja. Me impulsas a hacer más, a pensar mejor las cosas y, muchas veces, hasta me controlas para no hacer tantas tontadas.</p>
+
+      <p>Y por todo eso también quiero darte las gracias.</p>
+
+      <p>Gracias por quererme como me quieres.<br>
+      Gracias por tenerme paciencia.<br>
+      Gracias por apoyarme.<br>
+      Gracias por creer en mí.<br>
+      Gracias por estar conmigo incluso cuando no soy la persona más fácil del mundo.</p>
+
+      <p>Y perdón por las veces que no te hago sentir todo esto.</p>
+
+      <p>Perdón por las veces que una broma mía termina haciéndote enojar.<br>
+      Perdón por las veces que no estoy tan pendiente.<br>
+      Perdón por las veces que hago o digo cosas sin pensar cómo pueden hacerte sentir.<br>
+      Y perdón por todas esas pequeñas cosas que poco a poco se han convertido en discusiones entre nosotros.</p>
+
+      <p>No quiero que nuestras peleas se conviertan en algo que nos aleje.</p>
+
+      <p>Quiero que aprendamos de ellas.</p>
+
+      <p>Quiero que podamos hablar, entendernos, tenernos paciencia y seguir creciendo juntos. Porque sé que ninguno de los dos es perfecto, y sé que seguramente los dos vamos a seguir equivocándonos, pero quiero que nunca dejemos de tener las ganas de arreglar las cosas.</p>
+
+      <p>No quiero una relación donde nunca nos enojemos.</p>
+
+      <p>Quiero una relación donde, incluso cuando estemos enojados, sepamos que nos amamos y que vale la pena arreglarlo.</p>
+
+      <p>Porque para mí, tú vales muchísimo la pena.</p>
+
+      <p>Y aunque esta carta esté medio rara porque la neta no sé bien escribir cartas jajajaja, cada palabra que estoy escribiendo es algo que realmente siento.</p>
+
+      <p>Te amo, Misi.</p>
+
+      <p>Te amo por la persona que eres, por cómo me haces sentir, por cómo me has ayudado a crecer y por todo lo que hemos vivido juntos.</p>
+
+      <p>Y sobre todo, te amo porque cuando pienso en mi futuro, no puedo evitar imaginarte en él.</p>
+
+      <p>No quiero que una etapa en la que hemos estado peleando más de lo normal nos haga olvidar todo lo bonito que tenemos.</p>
+
+      <p>Quiero que volvamos a disfrutar más, a reírnos más, a molestarnos, a hacer nuestras pendejadas y a disfrutar de estar juntos.</p>
+
+      <p>Quiero seguir conociéndote, seguir aprendiendo de ti y seguir construyendo contigo.</p>
+
+      <p>Y si algo quiero que te quede claro después de leer esto es que yo te sigo eligiendo a ti.</p>
+
+      <p>En los días buenos y en los días malos.<br>
+      Cuando estamos felices y cuando estamos enojados.<br>
+      Cuando todo sale bien y cuando las cosas se complican.</p>
+
+      <p>Te elijo a ti.</p>
+
+      <p>Porque eres mi novia, mi mejor amiga, mi cómplice, mi persona y, si Dios quiere, algún día, la mujer con la que voy a compartir toda mi vida.</p>
+
+      <p>Te amo muchísimo, Misi.</p>
+
+      <p>Y gracias por ser parte de mi vida. ❤️</p>
+    </div>
+
+    <p class="firma">Con todo mi amor,<br>yo.</p>
+  </div>
+</div>
+
+<!-- Widget de música -->
+<div id="musica-widget">
+  <div class="disco" id="disco"></div>
+  <span id="musica-texto">nuestra canción</span>
+</div>
+
+<div id="yt-oculto">
+  <div id="yt-player"></div>
+</div>
+
+<script>
+  // Estrellas del fondo de la portada
+  const contenedorEstrellas = document.getElementById('estrellas');
+  for(let i=0;i<40;i++){
+    const e = document.createElement('div');
+    e.className='estrella';
+    e.style.left = Math.random()*100+'%';
+    e.style.top = Math.random()*100+'%';
+    e.style.animationDelay = (Math.random()*4)+'s';
+    contenedorEstrellas.appendChild(e);
+  }
+
+  // YouTube IFrame API
+  const tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.body.appendChild(tag);
+
+  let ytPlayer;
+  let ytListo = false;
+  function onYouTubeIframeAPIReady(){
+    ytPlayer = new YT.Player('yt-player', {
+      videoId: 'Sek1vLw3s20',
+      playerVars:{ autoplay:0, controls:0 },
+      events:{
+        onReady: () => { ytListo = true; }
+      }
+    });
+  }
+
+  const portada = document.getElementById('portada');
+  const cartaWrap = document.getElementById('carta-wrap');
+  const musicaWidget = document.getElementById('musica-widget');
+  const disco = document.getElementById('disco');
+
+  document.getElementById('boton-corazon').addEventListener('click', () => {
+    portada.classList.add('oculto');
+    cartaWrap.classList.add('visible');
+    musicaWidget.classList.add('visible');
+
+    if(ytListo){
+      ytPlayer.playVideo();
+      disco.classList.add('girando');
+    }
+
+    setTimeout(() => { portada.style.display='none'; }, 1200);
+  });
+
+  // Pausar/reanudar música al tocar el widget
+  musicaWidget.addEventListener('click', () => {
+    if(!ytListo) return;
+    const estado = ytPlayer.getPlayerState();
+    if(estado === 1){
+      ytPlayer.pauseVideo();
+      disco.classList.remove('girando');
+    } else {
+      ytPlayer.playVideo();
+      disco.classList.add('girando');
+    }
+  });
+  musicaWidget.style.cursor = 'pointer';
+</script>
+
+</body>
+</html>
